@@ -306,6 +306,14 @@
   .traj-step .traj-row > div { flex: 1 1 260px; }
   .traj-step img { max-height: 170px; border-radius: 6px; border: 1px solid #ddd; }
 
+  .heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
   .skill-list { display: flex; flex-direction: column; gap: 0.6rem; }
   .skill-box {
     background: #fffcf2;
@@ -504,7 +512,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">🧠 MammoClaw Method Overview</h2>
+        <h2 class="title is-3 has-text-centered">🦞 MammoClaw Method Overview</h2>
         <div class="content has-text-justified">
 
           <p><strong>Step 1: Agent Orchestration</strong></p>
@@ -679,7 +687,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">📊 Experiments</h2>
+        <h2 class="title is-3 has-text-centered">🎯 Experiments</h2>
         <div class="content has-text-justified" style="font-size: 1.05em;">
 
           <p>
@@ -1007,53 +1015,27 @@
 </section>
 
 
-<section class="hero teaser">
+<section id="trajectory" class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
 
-      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
-        Trajectory Visualization
-      </h3>
+      <div class="heading-row">
+        <h3 class="title is-4" style="margin-bottom: 0; text-align: left;">
+          Agent Trajectory: A Suspicious BI-RADS 4 Case
+        </h3>
+        <a href="./trajectories/index.html" target="_blank" class="button is-small is-rounded is-dark"
+           title="Interactive viewer with full reasoning steps, tool calls and tool outputs (large page, ~60 MB)">
+          <span class="icon"><i class="fas fa-route"></i></span>
+          <span>Browse all trajectories</span>
+        </a>
+      </div>
 
       <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
-        A representative reasoning trajectory from a CC-view mammogram. The agent first localizes a suspicious region,
-        verifies the finding using the paired MLO view and the contralateral breast, and incrementally refines its
-        reasoning before producing the final assessment. The framework exposes every tool interaction and piece of
-        intermediate evidence, which makes agent behavior auditable.
+        A representative trajectory in which the tool-augmented agent with evolved skills reaches a correct suspicious
+        assessment. An ROI inspection localizes architectural distortion, paired-view comparison verifies that the
+        finding persists across projections, and contralateral comparison rules out a symmetric normal variant. Every
+        tool interaction and piece of intermediate evidence is exposed, which makes agent behavior auditable.
       </p>
-
-      <div style="text-align: center;">
-        <img src="./media/trajectory.png"
-             alt="Skill-guided agent trajectory for BI-RADS prediction"
-             style="max-width: 70%; border-radius: 8px; border: 1px solid #ccc;">
-      </div>
-      <p class="fig-caption">
-        <strong>Figure:</strong> Skill-guided agent trajectory for BI-RADS prediction. Tool interactions and evolved
-        skills support evidence-driven mammography assessment.
-      </p>
-
-      <div style="text-align: center; margin-top: 1.5rem;">
-        <a href="./trajectories/index.html" target="_blank" class="button is-normal is-rounded is-dark">
-          <span class="icon"><i class="fas fa-route"></i></span>
-          <span>Browse all agent trajectories</span>
-        </a>
-        <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
-          Interactive viewer with full reasoning steps, tool calls and tool outputs (large page, ~60&nbsp;MB).
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<section class="hero teaser viz-alt">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-
-      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
-        Step-by-Step Example: A Suspicious BI-RADS 4 Case
-      </h3>
 
       <p style="margin-bottom: 1rem;">
         <strong>Retrieved skills:</strong>
@@ -1123,7 +1105,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">⚠️ Limitations</h2>
+        <h2 class="title is-3 has-text-centered">❗ Limitations</h2>
         <div class="content has-text-justified">
           <ul>
             <li>Evaluation covers two tasks, a single frozen backbone (Qwen3.5-35B-A3B, which is modest in the no-tools setting), and one dataset per task.</li>
