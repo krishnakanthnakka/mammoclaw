@@ -155,18 +155,12 @@ view, and ruling out a symmetric normal variant with the contralateral compariso
 
 ## Collaboration
 
-Because of limited compute and resources, the skill evolution reported in the paper uses only a **single evolution
-round** on a 100-example reference set. The natural next step, **multi-round skill evolution**, is left unexplored and
-is the direction I am most interested in pursuing with collaborators — how the loop behaves when repeated many times,
-whether performance improves steadily or saturates, and how to validate and prune a growing skill bank.
+Limited resources meant only a **single evolution round**, so **multi-round skill evolution** is unexplored — I am
+looking for collaborators on it, and for feedback from clinical researchers on whether the evolved skills are
+clinically meaningful. Details on the
+[project page](https://krishnakanthnakka.github.io/mammoclaw/#collaboration).
 
-I would also value **feedback on the evolved skills** from radiologists and clinical researchers: whether the skills
-encode clinically meaningful reasoning rather than dataset-specific shortcuts, and where the agent's reasoning in the
-logged trajectories is unsound. Critical feedback is welcome — see the
-[collaboration section](https://krishnakanthnakka.github.io/mammoclaw/#collaboration) of the project page.
-
-> **Intended use.** This is a research artifact. It is not a medical device and must not be used for diagnosis or
-> clinical decision-making.
+> **Intended use.** Research artifact only — not a medical device, not for diagnosis or clinical decision-making.
 
 ## Citation
 
