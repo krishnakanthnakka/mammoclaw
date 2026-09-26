@@ -1297,58 +1297,26 @@
           </div>
 
           <div class="content has-text-justified">
-            <p>
-              In the current setup, failed trajectories are collected once, a teacher model distills them into skills,
-              and those skills are used for all later runs. What happens when this loop is repeated many times is an
-              open question, and answering it needs more compute and more data than a single exploratory study allows.
-              Concretely, the questions I would like to work on are:
-            </p>
             <ul>
-              <li><strong>Multi-round evolution dynamics.</strong> How does performance behave as evolution rounds
-                accumulate? Does it improve steadily, saturate, or degrade once the skill bank grows large?</li>
-              <li><strong>Skill validation and pruning.</strong> Over many rounds, redundant, overlapping, or
-                subtly misleading skills are likely to accumulate. What validation and pruning mechanisms keep the
-                skill bank compact and reliable?</li>
-              <li><strong>Scale of the reference set and backbone.</strong> Larger reference sets and stronger
-                mammography-capable backbones, to separate gains from skill evolution from gains from the base model.</li>
-              <li><strong>Cross-task and cross-dataset transfer.</strong> Whether skills evolved for BI-RADS assessment
-                transfer to density estimation and to other datasets, or whether they overfit to the reference set.</li>
-              <li><strong>Clinical validation.</strong> Expert review of whether evolved skills encode clinically
-                meaningful reasoning rather than dataset-specific shortcuts.</li>
-              <li><strong>Process-level evaluation.</strong> Step-level and trajectory-level metrics, so that
-                reasoning quality is scored rather than only the final prediction.</li>
+              <li><strong>Multi-round skill evolution.</strong> In the current setup, failed trajectories are collected
+                once, a teacher model distills them into skills, and those skills are used for all later runs. How this
+                behaves when the loop is repeated many times, whether performance improves steadily or saturates, and
+                how to validate and prune a growing skill bank, is what I would most like to work on.</li>
+              <li><strong>Feedback on the evolved skills.</strong> If you are a radiologist or clinical researcher, I
+                would value your view on whether the
+                <a href="#skills">evolved skills</a> encode clinically meaningful reasoning rather than
+                dataset-specific shortcuts, and where the agent's reasoning in the
+                <a href="./trajectories/index.html" target="_blank">logged trajectories</a> is unsound.</li>
             </ul>
-            <p>
-              I would especially welcome contact from <strong>radiologists and clinical researchers</strong> interested
-              in validating or shaping the evolved skills, <strong>groups with compute</strong> to run longer-horizon
-              evolution experiments, and <strong>researchers working on agent memory, skill libraries, and
-              self-improving agents</strong> beyond the medical imaging domain.
-            </p>
           </div>
 
           <div class="browse-cta">
-            <div class="cta-row">
-              <a href="https://github.com/krishnakanthnakka/mammoclaw/issues" target="_blank"
-                 class="button is-medium is-rounded browse-btn">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Start a conversation on GitHub</span>
-              </a>
-              <a href="mailto:krishkanth.92@gmail.com?subject=MammoClaw%20feedback%3A%20LLM%20reasoning%20and%20clinical%20relevance%20of%20evolved%20skills"
-                 class="button is-medium is-rounded feedback-btn">
-                <span class="icon"><i class="fas fa-envelope"></i></span>
-                <span>Send feedback by email</span>
-              </a>
-            </div>
-            <p>
-              If you have feedback on the <strong>quality of the agent's LLM reasoning</strong> in the
-              <a href="./trajectories/index.html" target="_blank">logged trajectories</a>, or on the
-              <strong>clinical relevance of the evolved skills</strong>, I would genuinely like to hear it, including
-              where the reasoning is wrong or a skill is clinically unsound. Email is the best way to reach me.
-              You can also open an issue in the
-              <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank">MammoClaw repository</a> or
-              reach out via
-              <a href="https://scholar.google.com/citations?hl=en&amp;user=g_21RKoAAAAJ" target="_blank">Google Scholar</a>.
-            </p>
+            <a href="mailto:krishkanth.92@gmail.com?subject=MammoClaw%20feedback%3A%20LLM%20reasoning%20and%20clinical%20relevance%20of%20evolved%20skills"
+               class="button is-medium is-rounded feedback-btn">
+              <span class="icon"><i class="fas fa-envelope"></i></span>
+              <span>Send feedback by email</span>
+            </a>
+            <p>Feedback and collaboration enquiries are welcome by email, including critical ones.</p>
           </div>
 
         </div>
