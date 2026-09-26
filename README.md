@@ -155,8 +155,8 @@ view, and ruling out a symmetric normal variant with the contralateral compariso
 
 ## Collaboration
 
-I am looking for collaborators to extend this work, in particular on **multi-round skill evolution**, and for feedback
-from clinical researchers on the evolved skills. Details on the
+I am looking for collaborators to extend this work, in particular on **multi-round skill evolution**, and would greatly
+appreciate feedback from clinical researchers on the evolved skills. Details on the
 [project page](https://krishnakanthnakka.github.io/mammoclaw/#collaboration).
 
 > **Intended use.** Research artifact only — not a medical device, not for diagnosis or clinical decision-making.
