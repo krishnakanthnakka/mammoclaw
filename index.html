@@ -1188,6 +1188,7 @@
         <h2 class="title is-3 has-text-centered">❗ Limitations</h2>
         <div class="content has-text-justified">
           <ul>
+            <li><strong>Outcome-based, not process-based, evaluation.</strong> Our metrics (macro-F1, significance tests) only score the final prediction. They do not assess whether the agent's reasoning, tool use, and gathered evidence were clinically sound, so a correct answer may rest on flawed reasoning and vice versa. Step-level and trajectory-level metrics, ideally with expert review, are needed to evaluate the process itself.</li>
             <li>Evaluation covers two tasks, a single frozen backbone (Qwen3.5-35B-A3B, which is modest in the no-tools setting), and one dataset per task.</li>
             <li>Evolved skills come from a labeled reference set and have not been validated by clinical experts. Their clinical relevance, robustness, and transfer under dataset shift remain open.</li>
             <li>The effects of the system prompt, tool descriptions, teacher LLM, skill-generation prompt, and retrieval mechanism have not been ablated.</li>
