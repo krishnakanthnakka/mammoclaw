@@ -300,6 +300,8 @@
     line-height: 1.6;
   }
   .traj-step.tool { border-left-color: #466e68; background: #f7faf8; }
+  .traj-step.think { border-left-color: #4a4e52; background: #f6f6f4; }
+  .traj-step.think em { color: #333; }
   .traj-step.final { border-left-color: #3c8c5a; background: #ebfaf0; }
   .traj-step .traj-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; color: #222; }
   .traj-step .traj-row { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
@@ -1133,34 +1135,61 @@
         </div>
       </div>
 
-      <div class="traj-step">
+      <div class="traj-step think">
+        <div class="traj-title">💡 Step 1 · Initial Reasoning</div>
+        <em>“The user wants me to determine the BI-RADS category for this mammogram. Let me start by examining the image
+        and then use the appropriate tools to make a thorough assessment. I should first inspect the current example to
+        understand the metadata, then systematically evaluate the breast.”</em>
+      </div>
+
+      <div class="traj-step tool">
         <div class="traj-title">Step 1 · Tool Call: <code>inspect_current_example()</code></div>
-        <em>“I should first inspect the current example to understand the metadata, then systematically evaluate the breast.”</em><br>
-        <strong>Output:</strong> <code>laterality=R, view=MLO, subject_age=45.0, has_paired_view=true, paired_view=CC</code>
+        <strong>Output:</strong> <code>source_dataset=kau-bcmd, laterality=R, view=MLO, subject_age=45.0, has_paired_view=true, paired_view=CC</code>
+      </div>
+
+      <div class="traj-step think">
+        <div class="traj-title">💡 Step 2 · Reasoning (before ROI call)</div>
+        <em>“I see an MLO view of the right breast. There appears to be an area of architectural distortion or asymmetry
+        in the lower portion of the breast. Let me first inspect this area more closely with an ROI, then check the
+        paired view and contralateral breast.”</em>
       </div>
 
       <div class="traj-step tool">
         <div class="traj-title">Step 2 · Tool Call: <code>inspect_mammogram_roi(bbox=[200,650,450,950])</code></div>
         <div class="traj-row">
-          <div><em>“There appears to be an area of architectural distortion or asymmetry in the lower portion of the breast. Let me first inspect this area more closely.”</em><br>
+          <div><strong>Input:</strong> <code>description=“area of architectural distortion/asymmetry in lower breast”</code><br>
             The contrast-enhanced crop shows radiating lines converging toward a central point.</div>
           <div style="flex: 0 0 auto;"><img src="./media/traj4829_roi.jpg" alt="ROI crop"></div>
         </div>
       </div>
 
+      <div class="traj-step think">
+        <div class="traj-title">💡 Step 3 · Reasoning (after ROI, before paired-view call)</div>
+        <em>“The ROI shows an area of architectural distortion with spiculations radiating from a central point near the
+        skin/chest wall area. This looks suspicious. I need to check the paired view to confirm if this is a real finding
+        or an artifact.”</em>
+      </div>
+
       <div class="traj-step tool">
         <div class="traj-title">Step 3 · Tool Call: <code>inspect_paired_mammogram_view()</code></div>
         <div class="traj-row">
-          <div><em>“This looks suspicious. I need to check the paired view to confirm if this is a real finding or an artifact.”</em><br>
+          <div>Side-by-side panel, current R MLO (left) vs. paired R CC (right).<br>
             The finding is present on both R MLO and R CC, supporting a real 3D finding rather than a summation artifact.</div>
           <div style="flex: 0 0 auto;"><img src="./media/traj4829_paired.jpg" alt="Paired view"></div>
         </div>
       </div>
 
+      <div class="traj-step think">
+        <div class="traj-title">💡 Step 4 · Reasoning (after paired view, before contralateral call)</div>
+        <em>“The paired view shows the architectural distortion/linear density in the lower posterior aspect of the breast
+        on both the MLO and CC views. This confirms it is a real finding. Now I need to check the contralateral breast to
+        see whether it is a normal bilateral variant.”</em>
+      </div>
+
       <div class="traj-step tool">
         <div class="traj-title">Step 4 · Tool Call: <code>inspect_contralateral_breast()</code></div>
         <div class="traj-row">
-          <div><em>“Now I need to check the contralateral breast to see whether it is a normal bilateral variant.”</em><br>
+          <div>Side-by-side panel, current R MLO (left) vs. contralateral L MLO (right).<br>
             The left breast lacks a corresponding focal distortion, supporting a unilateral suspicious finding.</div>
           <div style="flex: 0 0 auto;"><img src="./media/traj4829_contra.jpg" alt="Contralateral comparison"></div>
         </div>
