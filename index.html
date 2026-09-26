@@ -489,9 +489,11 @@
 
       <div class="tldr">
         <span class="tldr-label">TL;DR</span>
-        <code>MammoClaw</code> turns a frozen, general-purpose MLLM into a mammography agent using deterministic tools
-        and reusable skills distilled from its own failed trajectories, with no weight updates. Tools alone do not help
-        (BI-RADS macro-F1 0.108 → 0.106), but evolved skills raise it to <strong>0.148</strong>.
+        <code>MammoClaw</code> turns a frozen, general-purpose MLLM into an auditable mammography agent. It gathers
+        evidence by retrieving task-specific knowledge, inspecting ROIs, comparing paired CC/MLO views and checking the
+        contralateral breast, and it evolves by distilling its own failed trajectories into reusable skills, with no
+        weight updates. Every tool call and piece of evidence behind a decision is recorded and can be audited, a step
+        towards trustworthy breast imaging.
       </div>
 
       <!-- Image -->
