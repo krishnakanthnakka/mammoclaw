@@ -306,13 +306,25 @@
   .traj-step .traj-row > div { flex: 1 1 260px; }
   .traj-step img { max-height: 170px; border-radius: 6px; border: 1px solid #ddd; }
 
-  .heading-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+  .browse-cta { text-align: center; margin: 0.5rem 0 1.75rem; }
+  .browse-cta p { font-size: 0.85rem; color: #666; margin-top: 0.5rem; }
+  .browse-btn {
+    background: #f68946;
+    border-color: #f68946;
+    color: #fff;
+    font-weight: 600;
+    padding-left: 1.75em;
+    padding-right: 1.75em;
+    box-shadow: 0 4px 14px rgba(246, 137, 70, 0.35);
+    transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .browse-btn:hover, .browse-btn:focus {
+    background: #e5752f;
+    border-color: #e5752f;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(246, 137, 70, 0.45);
   }
   .skill-list { display: flex; flex-direction: column; gap: 0.6rem; }
   .skill-box {
@@ -595,7 +607,7 @@
       logged agent trajectories.
     </p>
 
-    <div class="columns is-multiline">
+    <div class="columns is-multiline is-centered">
 
       <div class="column is-half">
         <div class="tool-card">
@@ -653,7 +665,7 @@
         </div>
       </div>
 
-      <div class="column is-one-third">
+      <div class="column is-half">
         <div class="tool-card">
           <div class="tool-cat">Single-image density</div>
           <div class="tool-name"><code>estimate_breast_density</code></div>
@@ -661,7 +673,7 @@
         </div>
       </div>
 
-      <div class="column is-one-third">
+      <div class="column is-half">
         <div class="tool-card">
           <div class="tool-cat">Single-image quality</div>
           <div class="tool-name"><code>measure_image_sharpness</code></div>
@@ -669,7 +681,7 @@
         </div>
       </div>
 
-      <div class="column is-one-third">
+      <div class="column is-half">
         <div class="tool-card">
           <div class="tool-cat">Single-image texture</div>
           <div class="tool-name"><code>compute_tissue_statistics</code></div>
@@ -1019,15 +1031,16 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
 
-      <div class="heading-row">
-        <h3 class="title is-4" style="margin-bottom: 0; text-align: left;">
-          Agent Trajectory: A Suspicious BI-RADS 4 Case
-        </h3>
-        <a href="./trajectories/index.html" target="_blank" class="button is-small is-rounded is-dark"
-           title="Interactive viewer with full reasoning steps, tool calls and tool outputs (large page, ~60 MB)">
+      <h3 class="title is-4" style="margin-bottom: 1rem; text-align: left;">
+        Agent Trajectory: A Suspicious BI-RADS 4 Case
+      </h3>
+
+      <div class="browse-cta">
+        <a href="./trajectories/index.html" target="_blank" class="button is-medium is-rounded browse-btn">
           <span class="icon"><i class="fas fa-route"></i></span>
           <span>Browse all trajectories</span>
         </a>
+        <p>Interactive viewer with full reasoning steps, tool calls and tool outputs (large page, ~60&nbsp;MB)</p>
       </div>
 
       <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
