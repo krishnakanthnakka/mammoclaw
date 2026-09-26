@@ -306,6 +306,28 @@
   .traj-step .traj-row > div { flex: 1 1 260px; }
   .traj-step img { max-height: 170px; border-radius: 6px; border: 1px solid #ddd; }
 
+  /* ── Header link buttons ── */
+  .link-btn {
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: filter 0.15s, transform 0.15s, box-shadow 0.15s;
+  }
+  .link-btn:hover, .link-btn:focus {
+    color: #fff;
+    text-decoration: none;
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  .btn-paper  { background: #b3261e; }
+  .btn-code   { background: #24292f; }
+  .btn-skills { background: #0f766e; }
+  .btn-traj   { background: #d2601f; }
+
   .browse-cta { text-align: center; margin: 0.5rem 0 1.75rem; }
   .browse-cta p { font-size: 0.85rem; color: #666; margin-top: 0.5rem; }
   .browse-btn {
@@ -356,8 +378,8 @@
       <a href="#tools">Tools</a>
       <a href="#experiments">Experiments</a>
       <a href="#results">Results</a>
-      <a href="#skills"> Evolved Skills</a>
-      <a href="./trajectories/index.html" target="_blank">Trajectories</a>
+      <a href="#skills">Evolved Skills</a>
+      <a href="./trajectories/index.html" target="_blank">Agent Trajectories</a>
       <a href="#BibTeX">Citation</a>
     </div>
   </nav>
@@ -388,30 +410,30 @@
             <div class="publication-links">
 
               <span class="link-block">
-                <a href="./docs/main.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <a href="./docs/main.pdf" target="_blank" class="external-link button is-normal is-rounded link-btn btn-paper">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
 
               <span class="link-block">
-                <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank" class="external-link button is-normal is-rounded link-btn btn-code">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
                 </a>
               </span>
 
               <span class="link-block">
-                <a href="#skills" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-lightbulb"></i></span>
-                  <span>Skills</span>
+                <a href="#skills" class="external-link button is-normal is-rounded link-btn btn-skills">
+                  <span class="icon"><i class="fas fa-dna"></i></span>
+                  <span>Evolved Skills</span>
                 </a>
               </span>
 
               <span class="link-block">
-                <a href="./trajectories/index.html" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-route"></i></span>
-                  <span>Trajectories</span>
+                <a href="./trajectories/index.html" target="_blank" class="external-link button is-normal is-rounded link-btn btn-traj">
+                  <span class="icon"><i class="fas fa-project-diagram"></i></span>
+                  <span>Agent Trajectories</span>
                 </a>
               </span>
 
@@ -1040,7 +1062,7 @@
           <span class="icon"><i class="fas fa-route"></i></span>
           <span>Browse all trajectories</span>
         </a>
-        <p>Interactive viewer with full reasoning steps, tool calls and tool outputs (large page, ~60&nbsp;MB)</p>
+        <p>We provide full agent trajectories for 100 examples, with every reasoning step, tool call and tool output (large page, ~60&nbsp;MB)</p>
       </div>
 
       <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
