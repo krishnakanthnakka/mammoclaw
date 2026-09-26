@@ -291,13 +291,24 @@
   .traj-step .traj-row > div { flex: 1 1 260px; }
   .traj-step img { max-height: 170px; border-radius: 6px; border: 1px solid #ddd; }
 
+  .skill-list { display: flex; flex-direction: column; gap: 0.6rem; }
   .skill-box {
     background: #fffcf2;
     border: 1px solid #505050;
-    padding: 1rem 1.25rem;
+    padding: 0.75rem 1.25rem;
     font-size: 0.9rem;
     line-height: 1.6;
   }
+  .skill-box summary { cursor: pointer; font-size: 1rem; }
+  .skill-box[open] summary { margin-bottom: 0.5rem; }
+  .skill-box .skill-num {
+    display: inline-block; min-width: 1.6em; text-align: center;
+    background: #f68946; color: #fff; border-radius: 4px; font-size: 0.8rem; font-weight: 600; margin-right: 0.3rem;
+  }
+  .skill-box .skill-desc { margin: 0.5rem 0; font-style: italic; color: #333; }
+  .skill-box .skill-anti-title { margin: 0.5rem 0 0.2rem; }
+  .skill-box ol, .skill-box ul { margin-top: 0; }
+  a.skill-chip:hover { background: #ffe6d5; text-decoration: none; }
   .skill-box .skill-meta { font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.8rem; color: #555; }
 </style>
 
@@ -310,6 +321,7 @@
       <a href="#tools">Tools</a>
       <a href="#experiments">Experiments</a>
       <a href="#results">Results</a>
+      <a href="#skills">Skills</a>
       <a href="./trajectories/index.html" target="_blank">Trajectories</a>
       <a href="#BibTeX">Citation</a>
     </div>
@@ -351,6 +363,13 @@
                 <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#skills" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-lightbulb"></i></span>
+                  <span>Skills</span>
                 </a>
               </span>
 
@@ -766,7 +785,8 @@
         conclusions in tool observations. After skill evolution, the agent calls ROI inspection and contralateral
         comparison more often and the knowledge-retrieval tool less often, suggesting the skills supply some of the
         task guidance the agent would otherwise look up. Agents also make more tool calls per case overall. How tool
-        usage relates to prediction quality remains an open question.
+        usage relates to prediction quality remains an open question. See the <a href="#skills">full list of evolved
+        skills</a> below.
       </p>
 
       <figure style="text-align: center; margin: 0 0 2rem;">
@@ -795,7 +815,7 @@
 </section>
 
 
-<section class="hero teaser viz-alt">
+<section id="skills" class="hero teaser viz-alt">
   <div class="container is-max-desktop">
     <div class="hero-body">
 
@@ -804,38 +824,167 @@
       </h3>
 
       <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
-        One evolution round on the BI-RADS reference set produced the following skills:
-      </p>
-      <p style="margin-bottom: 1.25rem;">
-        <span class="skill-chip">verify-suspicious-findings-with-multi-view-comparison</span>
-        <span class="skill-chip">systematic-quadrant-inspection-for-subtle-findings</span>
-        <span class="skill-chip">tool-execution-before-conclusion</span>
-        <span class="skill-chip">calibrate-birads-using-feature-checklist</span>
-        <span class="skill-chip">rule-out-artifact-with-contralateral-comparison</span>
-        <span class="skill-chip">distinguish-benign-from-probably-benign-calcifications</span>
-        <span class="skill-chip">avoid-characterizing-findings-without-tool-confirmation</span>
-        <span class="skill-chip">structured-reasoning-grounded-in-tool-outputs</span>
-        <span class="skill-chip">use-uncertainty-resolution-sequence</span>
+        These are the skills for the BI-RADS task, evolved automatically with DeepSeek-V4-Flash as the teacher model.
+        They are distilled from failed reasoning trajectories on the reference set and stored in a reusable skill
+        library. Rather than encoding explicit tool-selection policies, they capture reusable reasoning strategies:
+        systematic evidence gathering, multi-view verification, uncertainty resolution, BI-RADS calibration, and
+        grounding conclusions in tool observations. At inference, they are retrieved to guide the agent's reasoning
+        without updating the underlying MLLM. Click a skill to expand it.
       </p>
 
-      <p class="panel-label">Example skill</p>
-      <div class="skill-box">
-        <div class="skill-meta">
-          name: verify-suspicious-findings-with-multi-view-comparison<br>
-          category: general &nbsp;·&nbsp; source: dynamic &nbsp;·&nbsp; task: BI-RADS
-        </div>
-        <p style="margin: 0.6rem 0;"><strong>Verify Suspicious Findings with Multi-view Comparison</strong></p>
-        <ol style="margin-top: 0;">
+      <div class="skill-list">
+      <details class="skill-box" id="skill-verify-suspicious-findings-with-multi-view-comparison" open>
+        <summary><span class="skill-num">1</span> <strong>Verify Suspicious Findings with Multi-view Comparison</strong></summary>
+        <div class="skill-meta">name: verify-suspicious-findings-with-multi-view-comparison &nbsp;·&nbsp; category: general &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">Before concluding a suspicious finding like spiculation or architectural distortion, always compare with the paired view and contralateral breast to rule out artifacts or normal tissue overlap.</p>
+        <ol>
           <li>Immediately invoke <code>inspect_paired_mammogram_view</code> to see if the finding is visible in both CC and MLO projections. If it is not clearly present in both, it may be a summation artifact.</li>
           <li>Then invoke <code>inspect_contralateral_breast</code> to check for bilateral symmetry. A finding that appears in the same location on the opposite breast is likely a normal anatomic variant.</li>
           <li>Only after confirming the finding is unilateral and present on two orthogonal views should you assign a BI-RADS category of 4 or 5.</li>
           <li>If the finding disappears or appears symmetric, reassess as benign or normal (BI-RADS 1 or 2).</li>
         </ol>
-        <p style="margin: 0.6rem 0 0.2rem;"><strong>Anti-pattern</strong></p>
-        <ul style="margin-top: 0;">
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
           <li>Labeling a single-view finding as suspicious without multi-view confirmation.</li>
           <li>Skipping contralateral comparison when suspecting pathology.</li>
         </ul>
+      </details>
+
+      <details class="skill-box" id="skill-systematic-quadrant-inspection-for-subtle-findings">
+        <summary><span class="skill-num">2</span> <strong>Systematic Quadrant Inspection for Subtle Findings</strong></summary>
+        <div class="skill-meta">name: systematic-quadrant-inspection-for-subtle-findings &nbsp;·&nbsp; category: general &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">When no obvious mass or calcifications are seen, systematically inspect all quadrants using ROI tools to avoid missing subtle asymmetries or microcalcifications.</p>
+        <ol>
+          <li>Divide the breast into quadrants mentally (upper outer, upper inner, lower outer, lower inner) or use the nipple as reference.</li>
+          <li>For each quadrant, use <code>inspect_mammogram_roi</code> to zoom in, especially in areas where density appears slightly higher or where the tissue pattern changes.</li>
+          <li>Look for clustered calcifications, subtle asymmetries, or architectural distortion that may be obscured by dense tissue.</li>
+          <li>Compare the same quadrant in the contralateral breast to decide if a density is focal asymmetry or normal variant.</li>
+          <li>Document any finding even if it seems probably benign; do not dismiss as normal without visual confirmation.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Stopping after a global impression without quadrant-level inspection.</li>
+          <li>Assuming dense tissue is normal without systematic checking; dense breasts can hide lesions, and systematic inspection reduces undercalling.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-tool-execution-before-conclusion">
+        <summary><span class="skill-num">3</span> <strong>Tool Execution Before Conclusion</strong></summary>
+        <div class="skill-meta">name: tool-execution-before-conclusion &nbsp;·&nbsp; category: failure_recovery &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">After forming a hypothesis about a finding, immediately call the appropriate tool instead of describing a plan. Never present a tool plan without executing it.</p>
+        <ol>
+          <li>Formulate the specific question (e.g., “Is this density visible on the other view?” or “What are the margins of this mass?”).</li>
+          <li>Immediately call the relevant tool—<code>inspect_mammogram_roi</code>, <code>inspect_paired_mammogram_view</code>, or <code>inspect_contralateral_breast</code>—without describing the plan in natural language.</li>
+          <li>Wait for the tool output before refining your hypothesis. Do not characterize the finding based on the raw image alone.</li>
+          <li>After the tool returns, reason from its output. Repeat if necessary but avoid redundant calls.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Writing sentences such as “I will now call inspect_mammogram_roi” without actually invoking the tool. The model must call the tool, not plan to call it.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-calibrate-birads-using-feature-checklist">
+        <summary><span class="skill-num">4</span> <strong>Calibrate BI-RADS Using Feature Checklist</strong></summary>
+        <div class="skill-meta">name: calibrate-birads-using-feature-checklist &nbsp;·&nbsp; category: general &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">Use a systematic feature checklist to avoid extreme BI-RADS assignments (1 or 5) when intermediate categories (2, 3, 4) are more appropriate.</p>
+        <ol>
+          <li><strong>BI-RADS 1 (Negative):</strong> No findings on any view. All tool outputs confirm absence of masses, calcifications, asymmetries, or distortion. Both contralateral and paired views show normal symmetric tissue.</li>
+          <li><strong>BI-RADS 2 (Benign):</strong> Clearly benign findings: popcorn calcifications, vascular calcifications, skin calcifications, well-circumscribed round masses with fat density (e.g., oil cysts, hamartomas).</li>
+          <li><strong>BI-RADS 3 (Probably Benign):</strong> New, solitary, well-circumscribed solid mass; focal asymmetry that is not changing; grouped punctate calcifications; mild architectural distortion not meeting spiculation criteria. Short-interval follow-up recommended.</li>
+          <li><strong>BI-RADS 4 (Suspicious):</strong> Indeterminate findings that do not have classic benign features: irregular margins, suspicious calcifications (pleomorphic, linear), new or evolving asymmetry with borderline features.</li>
+          <li><strong>BI-RADS 5 (Highly Suggestive of Malignancy):</strong> Classic malignant features confirmed on multiple views: spiculated mass, coarse heterogeneous calcifications with linear distribution, architectural distortion with retraction.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Jumping from BI-RADS 1 to 5 or 5 to 1 without intermediate evidence.</li>
+          <li>Failing to use the checklist to justify the exact category assigned.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-rule-out-artifact-with-contralateral-comparison">
+        <summary><span class="skill-num">5</span> <strong>Rule Out Artifact with Contralateral Comparison</strong></summary>
+        <div class="skill-meta">name: rule-out-artifact-with-contralateral-comparison &nbsp;·&nbsp; category: general &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">Before labeling a finding as suspicious, compare with the contralateral breast to identify normal variants that mimic pathology.</p>
+        <ol>
+          <li>Invoke <code>inspect_contralateral_breast</code> to view the mirror-image region of the opposite breast.</li>
+          <li>If a similar density, pattern, or architectural appearance is present in the same location on the opposite side, it is highly likely a normal variant (e.g., asymmetric fibroglandular tissue, inframammary fold).</li>
+          <li>If the finding is absent on the contralateral side, then proceed with further characterization.</li>
+          <li>Document the comparison result in your reasoning. Bilateral symmetry strongly supports a benign or normal classification (BI-RADS 1 or 2).</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Concluding a finding is suspicious without checking the opposite breast. Many normal variants are bilateral and symmetric.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-distinguish-benign-from-probably-benign-calcifications">
+        <summary><span class="skill-num">6</span> <strong>Distinguish Benign from Probably Benign Calcifications</strong></summary>
+        <div class="skill-meta">name: distinguish-benign-from-probably-benign-calcifications &nbsp;·&nbsp; category: general &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">When evaluating calcifications, differentiate clearly benign patterns (BI-RADS 2) from probably benign patterns (BI-RADS 3) using morphology and distribution.</p>
+        <ol>
+          <li>Use <code>inspect_mammogram_roi</code> to zoom in on the calcifications and assess morphology at high resolution.</li>
+          <li><strong>Benign (BI-RADS 2):</strong> Popcorn (fibroadenoma), coarse (vascular), round/punctate scattered, skin calcifications, milk of calcium, dystrophic, suture. Typically large, well-defined, and not clustered.</li>
+          <li><strong>Probably Benign (BI-RADS 3):</strong> Grouped fine punctate (5+ in cluster), clustered but monomorphic, small round/oval in a cluster, no pleomorphism or linear shapes. Short-interval follow-up typical.</li>
+          <li><strong>Suspicious (BI-RADS 4/5):</strong> Pleomorphic, amorphous, fine linear/branching, coarse heterogeneous, with ductal distribution or segmental.</li>
+          <li>Always confirm distribution on both views using <code>inspect_paired_mammogram_view</code>.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Assigning BI-RADS 2 to a cluster of fine punctate calcifications unless they are clearly scattered and not grouped.</li>
+          <li>Jumping to BI-RADS 4 for grouped punctate calcifications without considering BI-RADS 3.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-avoid-characterizing-findings-without-tool-confirmation">
+        <summary><span class="skill-num">7</span> <strong>Avoid Characterizing Findings Without Tool Confirmation</strong></summary>
+        <div class="skill-meta">name: avoid-characterizing-findings-without-tool-confirmation &nbsp;·&nbsp; category: failure_recovery &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">Never describe a finding as ‘spiculated’, ‘mass’, or ‘architectural distortion’ before using a tool to confirm its appearance.</p>
+        <ol>
+          <li>Formulate only as a hypothesis (e.g., “I see a region of increased density that might be a mass”).</li>
+          <li>Immediately call the appropriate tool (<code>inspect_mammogram_roi</code>, <code>inspect_paired_mammogram_view</code>, or <code>inspect_contralateral_breast</code>) to gather evidence.</li>
+          <li>After receiving tool output, use the observed features to characterize the finding. Describe what the tool shows, not what you think you see in the raw image.</li>
+          <li>If the tool output does not clearly show the feature, do not assert it in reasoning.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Stating “The mammogram reveals a spiculated mass” before any tool call. Such statements are hallucinations and lead to misclassification.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-structured-reasoning-grounded-in-tool-outputs">
+        <summary><span class="skill-num">8</span> <strong>Structured Reasoning Grounded in Tool Outputs</strong></summary>
+        <div class="skill-meta">name: structured-reasoning-grounded-in-tool-outputs &nbsp;·&nbsp; category: failure_recovery &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">Ensure every statement in the reasoning summary is directly supported by a tool finding listed in tool_findings, with explicit citation.</p>
+        <ol>
+          <li>List every tool call in <code>tool_findings</code> in the exact order they were made, with one bullet per tool.</li>
+          <li>In <code>reasoning_summary</code>, for each claim about the image, explicitly reference which tool provided the evidence (e.g., “<code>inspect_paired_mammogram_view</code> confirmed the finding is present on both views”).</li>
+          <li>Do not include any visual observations that were not obtained from a tool output. If an observation was made from the raw image and then confirmed with a tool, only the tool output counts as evidence.</li>
+          <li>If multiple tools were used, explain how each tool contributed to the final decision.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Writing a reasoning summary that contains descriptions of findings without attributing them to specific tool calls. Every piece of evidence must be traceable to a tool output.</li>
+        </ul>
+      </details>
+
+      <details class="skill-box" id="skill-use-uncertainty-resolution-sequence">
+        <summary><span class="skill-num">9</span> <strong>Use Uncertainty Resolution Sequence</strong></summary>
+        <div class="skill-meta">name: use-uncertainty-resolution-sequence &nbsp;·&nbsp; category: general &nbsp;·&nbsp; task: BI-RADS</div>
+        <p class="skill-desc">When uncertain about a finding, follow a structured sequence: inspect ROI, check paired view, compare contralateral, and optionally retrieve knowledge before finalizing.</p>
+        <ol>
+          <li><strong>Step 1:</strong> Use <code>inspect_mammogram_roi</code> (up to 2 times) to zoom in on the area and characterize margins, shape, density, and internal features.</li>
+          <li><strong>Step 2:</strong> Use <code>inspect_paired_mammogram_view</code> to confirm the finding appears in the second projection. If it does not, it is likely superimposition.</li>
+          <li><strong>Step 3:</strong> Use <code>inspect_contralateral_breast</code> to check if the finding is bilateral. If symmetric, it is a normal variant.</li>
+          <li><strong>Step 4 (if needed):</strong> Use <code>retrieve_knowledge</code> to resolve definitional uncertainty about categories (e.g., what exactly constitutes a probably benign calcification).</li>
+          <li>Only after completing this sequence should you assign a BI-RADS category.</li>
+        </ol>
+        <p class="skill-anti-title"><strong>Anti-pattern</strong></p>
+        <ul>
+          <li>Making a final decision while still uncertain. The sequence is designed to reduce uncertainty incrementally.</li>
+          <li>Skipping steps, which leads to over- or under-calling.</li>
+        </ul>
+      </details>
       </div>
 
     </div>
@@ -893,10 +1042,10 @@
 
       <p style="margin-bottom: 1rem;">
         <strong>Retrieved skills:</strong>
-        <span class="skill-chip">verify-suspicious-findings-with-multi-view-comparison</span>
-        <span class="skill-chip">rule-out-artifact-with-contralateral-comparison</span>
-        <span class="skill-chip">structured-reasoning-grounded-in-tool-outputs</span>
-        <span class="skill-chip">calibrate-birads-using-feature-checklist</span>
+        <a class="skill-chip" href="#skill-verify-suspicious-findings-with-multi-view-comparison">verify-suspicious-findings-with-multi-view-comparison</a>
+        <a class="skill-chip" href="#skill-rule-out-artifact-with-contralateral-comparison">rule-out-artifact-with-contralateral-comparison</a>
+        <a class="skill-chip" href="#skill-structured-reasoning-grounded-in-tool-outputs">structured-reasoning-grounded-in-tool-outputs</a>
+        <a class="skill-chip" href="#skill-calibrate-birads-using-feature-checklist">calibrate-birads-using-feature-checklist</a>
       </p>
 
       <div class="traj-step tool">
@@ -1019,6 +1168,16 @@
       </p>
     </div>
   </section>
+
+  <script>
+    // Expand a collapsed skill when a link points at it.
+    function openSkillFromHash() {
+      var el = location.hash && document.getElementById(location.hash.slice(1));
+      if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView(); }
+    }
+    window.addEventListener('hashchange', openSkillFromHash);
+    openSkillFromHash();
+  </script>
 
 </body>
 
