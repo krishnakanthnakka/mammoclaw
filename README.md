@@ -155,9 +155,8 @@ view, and ruling out a symmetric normal variant with the contralateral compariso
 
 ## Collaboration
 
-Limited resources meant only a **single evolution round**, so **multi-round skill evolution** is unexplored — I am
-looking for collaborators on it, and for feedback from clinical researchers on whether the evolved skills are
-clinically meaningful. Details on the
+I am looking for collaborators to extend this work, in particular on **multi-round skill evolution**, and for feedback
+from clinical researchers on the evolved skills. Details on the
 [project page](https://krishnakanthnakka.github.io/mammoclaw/#collaboration).
 
 > **Intended use.** Research artifact only — not a medical device, not for diagnosis or clinical decision-making.
