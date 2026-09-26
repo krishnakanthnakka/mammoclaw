@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Mammo-SAE: Interpreting Breast Cancer Concept Learning with Sparse Autoencoders">
-  <meta name="keywords" content="multimodal chatbot">
+  <meta name="description" content="MammoClaw: Towards Skill-Evolving Agent Harness for Breast Cancer Mammography Analysis">
+  <meta name="keywords" content="mammography, agents, MLLM, skill evolution, BI-RADS, breast density">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MammoSAE</title>
+  <title>MammoClaw</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Google+Sans|Noto+Sans|Castoro&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -20,7 +20,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.27.0/gradio.js"></script>
 </head>
 
 <style>
@@ -226,6 +225,81 @@
   .viz-alt { background-color: #f7f8fa; }
 </style>
 
+<style>
+  /* ── Additions for MammoClaw content ── */
+  .eq {
+    text-align: center;
+    font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif;
+    font-size: 1.1em;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .results-table {
+    margin: 0 auto;
+    font-size: 0.95rem;
+  }
+  .results-table th, .results-table td {
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+  .results-table td:first-child, .results-table th:first-child { text-align: left !important; }
+  .results-table tr.is-best td { font-weight: 600; background: #fff4ec; }
+
+  .tool-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    height: 100%;
+    background: #fff;
+  }
+  .tool-card .tool-cat {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #f68946;
+  }
+  .tool-card .tool-name { margin: 0.25rem 0 0.4rem; }
+  .tool-card p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.5rem; color: #333; }
+  .tool-card img { max-height: 150px; border-radius: 6px; border: 1px solid #ddd; }
+
+  .skill-chip {
+    display: inline-block;
+    font-family: 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+    font-size: 0.8rem;
+    background: #f3f3f5;
+    color: #333;
+    border-radius: 4px;
+    padding: 0.15em 0.5em;
+    margin: 0.15rem 0.1rem;
+  }
+
+  /* ── Trajectory steps ── */
+  .traj-step {
+    border-left: 4px solid #4a4e52;
+    background: #f6f6f4;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .traj-step.tool { border-left-color: #466e68; background: #f7faf8; }
+  .traj-step.final { border-left-color: #3c8c5a; background: #ebfaf0; }
+  .traj-step .traj-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; color: #222; }
+  .traj-step .traj-row { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .traj-step .traj-row > div { flex: 1 1 260px; }
+  .traj-step img { max-height: 170px; border-radius: 6px; border: 1px solid #ddd; }
+
+  .skill-box {
+    background: #fffcf2;
+    border: 1px solid #505050;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .skill-box .skill-meta { font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.8rem; color: #555; }
+</style>
 
 <body>
 
@@ -233,6 +307,7 @@
     <div class="site-nav-inner">
       <a href="#highlights">Highlights</a>
       <a href="#method">Method</a>
+      <a href="#tools">Tools</a>
       <a href="#experiments">Experiments</a>
       <a href="#results">Results</a>
       <a href="#BibTeX">Citation</a>
@@ -244,12 +319,12 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <img src="images/breasticon.png" alt="MammoSAE" width="100" style="margin-bottom: 1rem;">
-          
+          <img src="images/breasticon.png" alt="MammoClaw" width="100" style="margin-bottom: 1rem;">
+
           <h1 class="title is-2 publication-title" style="line-height: 1.25; margin-bottom: 0.5rem;">
-            Mammo-SAE: Interpreting Breast Cancer Concept Learning with Sparse AutoEncoders
+            MammoClaw: Towards Skill-Evolving Agent Harness for Breast Cancer Mammography Analysis
           </h1>
-          <p class="is-size-5" style="color: #5a5a5a; margin-bottom: 1rem;">[DeepBreath Workshop, MICCAI 2025]</p>
+          <p class="is-size-5" style="color: #5a5a5a; margin-bottom: 1rem;">[Preprint, 2026]</p>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
@@ -258,37 +333,23 @@
           </div>
 
           <div class="is-size-5 publication-authors mb-4">
-            <span class="author-block">Bavaria, Germany</span>
+            <span class="author-block">Munich, Bavaria, Germany</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              
+
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2507.15227" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" title="arXiv link coming soon">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
-                  <span>Paper</span>
+                  <span>Paper (coming soon)</span>
                 </a>
               </span>
 
               <span class="link-block">
-                <a href="https://github.com/krishnakanthnakka/MammoSAE.git" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
-                </a>
-              </span>
-
-              <span class="link-block">
-                <a href="https://huggingface.co/KKNakka/MammoSAE" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><span>🤗</span></span>
-                  <span>Hugging Face</span>
-                </a>
-              </span>
-
-              <span class="link-block">
-                <a href="images/P2_Krishna_Kanth_Nakka_Mammo-SAE_Poster.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-palette"></i></span>
-                  <span>Poster</span>
                 </a>
               </span>
 
@@ -296,7 +357,7 @@
           </div>
 
           <div style="background-color: #fff8e1; border: 2px solid #f9a825; padding: 14px 24px; margin: 20px auto 0; border-radius: 8px; font-size: 0.95rem; max-width: 680px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: center;">
-            <strong>Collaboration:</strong> If you are interested in collaborating on breast cancer interpretability research, please write to me at <a href="mailto:krishkanth.92@gmail.com">krishkanth.92@gmail.com</a>.
+            <strong>Collaboration:</strong> If you are interested in collaborating on agentic mammography research, please write to me at <a href="mailto:krishkanth.92@gmail.com">krishkanth.92@gmail.com</a>.
           </div>
 
           </div>
@@ -305,7 +366,7 @@
   </div>
 </section>
 
-  
+
 
 
 <section class="hero teaser">
@@ -313,21 +374,48 @@
     <div class="hero-body" style="text-align: center;">
 
       <!-- Image -->
-      <img src="./images/mammosae.png" 
-           alt="Mammo-SAE Framework" 
+      <img src="./media/overview_v5.png"
+           alt="MammoClaw Framework"
            style="max-width: 100%; border-radius: 8px; border: 0px solid #ccc;">
 
       <!-- Caption Below Image -->
       <p style="text-align: justify; margin-top: 12px; font-size: 0.95em; max-width: 900px; margin-left: auto; margin-right: auto;">
-        <strong>Mammo-SAE Framework.</strong> The SAE is first trained on patch-level CLIP features 
-        <em><strong>x<sub>j</sub> ∈ ℝ<sup>d</sup></strong></em> at any given layer, projecting them into a high-dimensional, 
-        interpretable sparse latent space <em><strong>z ∈ ℝ<sup>h</sup></strong></em>, and decoding them back for reconstruction. 
-        Once trained, the SAE is used to analyze which latent neurons are activated and what semantic information they encode. 
-        We also perform targeted interventions in the latent neuron space to assess their influence on downstream label prediction. 
-        We observe the learned latents capture diverse regions such as <em>nipple regions, mass regions</em>, and background areas. 
-        Red boxes indicate ground-truth mass localization.
+        <strong>MammoClaw Framework.</strong> The top panel illustrates the agent orchestration: a frozen MLLM
+        alternates between reasoning, calls to deterministic mammography tools, and observations before producing a
+        final prediction. The bottom panel shows the offline skill-evolution workflow: failed trajectories on a labeled
+        reference set are analyzed by a teacher LLM and distilled into reusable textual skills, which are retrieved and
+        injected into the agent context in later runs, without updating any model weights.
       </p>
 
+    </div>
+  </div>
+</section>
+
+
+
+
+<section id="abstract" class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this work, we explore <code>MammoClaw</code>, a training-free agent framework that leverages frozen MLLMs
+            for mammography analysis. To support agentic investigation, we equip the agent with lightweight
+            mammography-specific tools for targeted image analysis, including ROI, paired-view, and contralateral-breast
+            examination. <code>MammoClaw</code> iteratively gathers evidence through these tools, while skill evolution
+            enables non-parametric adaptation by transforming failed trajectories into reusable guidance for later runs.
+            We evaluate the framework on BI-RADS assessment and breast density estimation tasks. In our experiments, we
+            find that tools alone do not reliably improve performance, whereas evolved skills can improve tool-use
+            behavior and performance in some settings. Beyond these results, <code>MammoClaw</code> enables transparent
+            inspection of evidence acquisition, tool interactions, and failure modes, facilitating the analysis and
+            auditing of agent behavior. We view this work as an exploratory study of training-free, self-evolving
+            agentic approaches for mammography and hope it provides a concrete starting point for future work on
+            mammography-specific tools and self-evolution mechanisms.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -344,29 +432,29 @@
         <div class="content has-text-justified">
           <ol type="1">
             <li>
-  <b>Mammo-SAE Introduction.</b> 
-  We propose <code>Mammo-SAE</code>, a sparse autoencoder trained on visual features from Mammo-CLIP, 
-  a vision–language model pretrained on mammogram image–report pairs. 
-  Mammo-SAE aims to enhance interpretability in breast imaging by learning latent neurons 
-  that are human-interpretable. It first identifies highly activated latent neurons 
-  and then conducts interventions to understand their causal effects.
-</li>
-<li>
-  <b>Mammo-SAE Framework.</b>
-  Our framework projects patch-level CLIP features into a high-dimensional sparse latent space 
-  designed for human interpretability. We identify monosemantic latent neurons whose activations 
-  align with meaningful breast cancer features such as masses and calcifications by finding 
-  the most highly activated neurons. We then perform targeted interventions to test how 
-  these neurons affect label predictions by selectively activating or deactivating groups of neurons.
-</li>
-<li>
-  <b>Extensive Evaluation.</b> 
-  We visualize spatial activations of top-activated latent neurons, showing that they frequently 
-  match clinically relevant regions of interest. Our experiments also reveal confounding factors—
-  such as background patterns—that influence model decisions. Furthermore, fine-tuning Mammo-CLIP 
-  increases the activation of clinically relevant latent neurons, thus explaining the reasons for performance gains.
-</li>
-
+              <b>Framework.</b>
+              We develop <code>MammoClaw</code>, a training-free agent harness for exploring agentic mammography
+              analysis with frozen MLLMs, deterministic mammography tools, and an automated offline skill-evolution
+              workflow.
+            </li>
+            <li>
+              <b>Tool Suite.</b>
+              We develop an initial suite of lightweight, deterministic, and model-free mammography tools for
+              retrieving task knowledge, inspecting regions of interest, comparing paired and contralateral views, and
+              gathering structured evidence, without relying on auxiliary segmentation or detection networks.
+            </li>
+            <li>
+              <b>Skill Evolution.</b>
+              We adapt an offline skill-evolution workflow that distills reusable reasoning guidance from failed
+              trajectories and retrieves these skills in subsequent cases, allowing us to study experience-driven
+              adaptation without updating the backbone model weights.
+            </li>
+            <li>
+              <b>Evaluation.</b>
+              We empirically investigate <code>MammoClaw</code> on BI-RADS assessment and breast density estimation.
+              Tool augmentation alone does not necessarily improve performance (BI-RADS macro-F1 0.108 → 0.106), while
+              skill evolution improves both performance (→ 0.148) and tool-use behavior.
+            </li>
           </ol>
         </div>
       </div>
@@ -378,94 +466,171 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">🧠 Mammo-SAE Method Overview</h2>
-        <div class="content has-text-justified">  <!--  style="font-size: 1.05em;" -->
+        <h2 class="title is-3 has-text-centered">🧠 MammoClaw Method Overview</h2>
+        <div class="content has-text-justified">
 
-          <p><strong>Step 1: Feature Extraction</strong></p>
+          <p><strong>Step 1: Agent Orchestration</strong></p>
           <p>
-            Given an input image <strong>I</strong>, we extract local features from a pretrained Mammo-CLIP model at a specific layer <strong>l</strong>. Each spatial position <strong>j</strong> in the feature map yields a vector <strong>x<sub>l</sub><sup>j</sup> ∈ ℝ<sup>d</sup></strong>, where <strong>d</strong> is the feature dimension and <strong>N<sub>l</sub> = H<sub>l</sub> × W<sub>l</sub></strong> is the number of spatial locations.
+            Following the ReAct framework, the orchestration layer alternates between reasoning, tool invocation, and
+            observation before producing a final prediction. A mammography case is represented as
+            <strong>x = (I, q, 𝒞)</strong>, where <strong>I</strong> is the input mammogram, <strong>q</strong> the
+            task-specific question, and <strong>𝒞</strong> the candidate answer set. Let <strong>f<sub>θ</sub></strong>
+            be the frozen MLLM, <strong>𝒜</strong> the mammography tool library, and <strong>𝒮</strong> the skill bank.
+            Before the first reasoning step, a lightweight retriever selects relevant skills, which are prepended to the
+            initial prompt context <strong>ℋ<sub>0</sub></strong>:
           </p>
-
-
-          <p><strong>Step 2: Sparse Autoencoder Training</strong></p>
-          <p>
-            The extracted feature <strong>x<sub>l</sub><sup>j</sup></strong> is encoded using weight matrix <strong>W<sub>enc</sub> ∈ ℝ<sup>d×h</sup></strong>, passed through a ReLU nonlinearity, and decoded using <strong>W<sub>dec</sub> ∈ ℝ<sup>h×d</sup></strong>. The training objective combines reconstruction and sparsity:
-          </p>
-
-          <!--
-
-          <p style="text-align: center; font-family: monospace;">
-            L = ‖W<sub>dec</sub> · ReLU(W<sub>enc</sub> · x<sup>j</sup>) – x<sup>j</sup>‖<sup>2</sup><sub>2</sub> + λ‖ReLU(W<sub>enc</sub> · x<sup>j</sup>)‖<sub>1</sub>
-          </p>
-
-          -->
-
-          <p style="text-align:center;">
-            <img src="images/equation_1.png" alt="Equation 1" style="max-width:80%; height:auto;">
-          </p>
+          <p class="eq"><i>S<sub>x</sub></i> = <i>R</i>(<i>q</i>, 𝒮)</p>
 
           <p>
-            This encourages the autoencoder to reconstruct input features while activating only a small number of latent neurons, enabling interpretability.
+            At step <strong>t</strong>, the MLLM either produces a final prediction <strong>ŷ ∈ 𝒞</strong> or selects a
+            tool call <strong>u<sub>t</sub> = (A<sub>t</sub>, p<sub>t</sub>)</strong>, where <strong>p<sub>t</sub></strong>
+            holds tool-specific inputs such as ROI coordinates. The tool returns an observation that is appended to the
+            context:
           </p>
-
-          <p><strong>Step 3: Identifying Concept-Neurons</strong></p>
+          <p class="eq">
+            <i>o<sub>t</sub></i> = <i>A<sub>t</sub></i>(<i>x</i>, <i>p<sub>t</sub></i>),
+            &nbsp;&nbsp;&nbsp;
+            ℋ<sub><i>t</i></sub> = ℋ<sub><i>t</i>−1</sub> ⊕ (<i>u<sub>t</sub></i>, <i>o<sub>t</sub></i>)
+          </p>
           <p>
-            After training, we compute the class-wise mean latent activation <strong>z̄<sup>(c)</sup> ∈ ℝ<sup>h</sup></strong> over all examples in class <strong>c ∈ {0, 1}</strong>:
+            The resulting trajectory <strong>τ = {(ℋ<sub>t−1</sub>, u<sub>t</sub>, o<sub>t</sub>)}<sub>t=1..k</sub></strong>
+            is an explicit record of the agent's reasoning and tool interactions, and is later used for skill evolution.
           </p>
 
-          <!-- <p style="text-align: center; font-family: monospace;">
-            z̄<sup>(c)</sup> = (1 / |D<sub>c</sub>| · N<sub>l</sub>) ∑<sub>x ∈ D<sub>c</sub></sub> ∑<sub>j=1</sub><sup>N<sub>l</sub></sup> ReLU(W<sub>enc</sub> · x<sup>j</sup>)
-          </p> -->
-
-          <p style="text-align:center;">
-            <img src="images/equation_2.png" alt="Equation 2" style="max-width:80%; height:auto;">
-          </p> 
-
+          <p><strong>Step 2: Mammography Tools</strong></p>
           <p>
-            Each latent neuron <strong>t</strong> is scored by its activation <strong>s<sub>t</sub><sup>(c)</sup> = z̄<sub>t</sub><sup>(c)</sup></strong>, and top-scoring neurons are considered concept-aligned.
+            The agent has access to a lightweight suite of deterministic, <em>model-free</em> tools: task-context
+            tools, single-image ROI inspection, cross-view and contralateral comparison, and simple image-processing
+            utilities (see <a href="#tools">Tool Suite</a>). They return either text (BI-RADS definitions, domain
+            knowledge, metadata) or images (ROI crops, paired-view composites, contralateral comparisons). Access alone
+            does not guarantee effective use: the agent must still decide when to call a tool, which one, and how to
+            interpret its output.
           </p>
 
-          <p><strong>Step 4: Visualization and Semantic Probing</strong></p>
+          <p><strong>Step 3: Collecting Failed Trajectories</strong></p>
           <p>
-            We visualize input patches that strongly activate each latent neuron. This reveals whether the neuron focuses on meaningful clinical patterns (e.g., masses, calcifications) or irrelevant areas.
+            Skill evolution runs offline on a labeled reference set <strong>𝒟<sub>ref</sub> = {(x<sub>j</sub>, y<sub>j</sub>)}<sub>j=1..N</sub></strong>,
+            held out from test evaluation. Starting from an empty skill bank <strong>𝒮<sup>(0)</sup></strong>, at round
+            <strong>r</strong> the agent is run on the reference set and failed trajectories are collected:
+          </p>
+          <p class="eq">
+            𝒯<sub>fail</sub><sup>(<i>r</i>)</sup> = { (τ<sub><i>j</i></sub><sup>(<i>r</i>)</sup>, <i>x<sub>j</sub></i>, <i>y<sub>j</sub></i>) &nbsp;|&nbsp; ŷ<sub><i>j</i></sub><sup>(<i>r</i>)</sup> ≠ <i>y<sub>j</sub></i> }
           </p>
 
-          <p><strong>Step 5: Latent Interventions</strong></p>
+          <p><strong>Step 4: Distilling Skills</strong></p>
           <p>
-            We intervene on the latent activations <strong>z = ReLU(W<sub>enc</sub> · x<sup>j</sup>)</strong> by either retaining or suppressing specific neurons:
+            A teacher model <strong>G</strong> analyzes all failed trajectories together and proposes candidate skills
+            <strong>𝒮̃<sup>(r)</sup> = G(𝒯<sub>fail</sub><sup>(r)</sup>)</strong>. Skills capture reusable reasoning
+            strategies, tool-use patterns, and corrections for recurring failure modes. They are
+            <em>not</em> trained parameters: they are textual policies mined from prior failures and injected into the
+            agent context at inference time.
           </p>
 
-          <ul>
-            <li>
-              <strong>Top-k Activated:</strong> Keep only the top-k neuron activations:
-              <!-- <p style="font-family: monospace;">
-                z′ = z ⊙ m, &nbsp; where &nbsp; m<sub>i</sub> = 1 if i ∈ T<sub>k</sub><sup>(0)</sup> ∪ T<sub>k</sub><sup>(1)</sup>, else 0
-              </p> -->
-
-              <p style="text-align:center;">
-              <img src="images/equation_3.png" alt="Equation 3" style="max-width:80%; height:auto;">
-             </p>
-
-            </li>
-            <li>
-              <strong>Top-k Deactivated:</strong> Suppress the top-k neurons:
-              <!-- <p style="font-family: monospace;">
-                z′ = z ⊙ (1 – m)
-              </p> -->
-
-              <p style="text-align:center;">
-              <img src="images/equation_4.png" alt="Equation 4" style="max-width:80%; height:auto;">
-              </p>
-
-            </li>
-          </ul>
-
+          <p><strong>Step 5: Updating the Skill Bank</strong></p>
           <p>
-            By comparing the model's outputs before and after intervention, we assess whether the top neurons carry meaningful information or reflect confounding artifacts.
+            Near-duplicate candidates are filtered using name-token Jaccard similarity and semantic cosine similarity
+            over skill embeddings. The remaining novel skills <strong>Δ𝒮<sup>(r)</sup></strong> are added to the bank:
           </p>
+          <p class="eq">𝒮<sup>(<i>r</i>+1)</sup> = 𝒮<sup>(<i>r</i>)</sup> ∪ Δ𝒮<sup>(<i>r</i>)</sup></p>
 
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="tools" class="section" style="background-color: #efeff081;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">🛠️ Mammography Tool Suite</h2>
+    <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1.5em;">
+      All tools are deterministic and model-free. Below is one representative call per tool, drawn directly from
+      logged agent trajectories.
+    </p>
+
+    <div class="columns is-multiline">
+
+      <div class="column is-half">
+        <div class="tool-card">
+          <div class="tool-cat">Task context</div>
+          <div class="tool-name"><code>inspect_current_example</code></div>
+          <p>Returns the current example metadata.</p>
+          <p><strong>Output:</strong> <code>laterality=R, view=MLO, subject_age=61.0, has_paired_view=true, paired_view=CC</code></p>
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="tool-card">
+          <div class="tool-cat">Task context</div>
+          <div class="tool-name"><code>retrieve_knowledge</code></div>
+          <p>Retrieves task-specific domain knowledge, such as BI-RADS category definitions (0–6, including 4A/4B/4C)
+            for BI-RADS assessment, or density-band definitions for density assessment.</p>
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="tool-card">
+          <div class="tool-cat">Single-image inspection</div>
+          <div class="tool-name"><code>inspect_mammogram_roi</code></div>
+          <p>Crops and enlarges a region using normalized 0–1000 image-grid coordinates, with optional contrast enhancement.</p>
+          <p><strong>Input:</strong> <code>bbox=[200, 200, 800, 800]</code>, <code>enhance_contrast=true</code></p>
+          <img src="./media/tool_example_inspect_mammogram_roi.jpg" alt="ROI inspection example">
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="tool-card">
+          <div class="tool-cat">Single-image measurement</div>
+          <div class="tool-name"><code>measure_finding_size</code></div>
+          <p>Measures the width and height of a finding by drawing annotated measurement bars on a contextual crop.</p>
+          <p><strong>Input:</strong> <code>bbox=[0, 200, 250, 550]</code>, “spiculated mass at nipple/areolar region”</p>
+          <img src="./media/tool_example_measure_finding_size.jpg" alt="Finding size measurement example">
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="tool-card">
+          <div class="tool-cat">Cross-view comparison</div>
+          <div class="tool-name"><code>inspect_paired_mammogram_view</code></div>
+          <p>Returns the paired CC and MLO projections of the same breast side by side.</p>
+          <img src="./media/tool_example_inspect_paired_mammogram_view.jpg" alt="Paired view example">
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="tool-card">
+          <div class="tool-cat">Cross-breast comparison</div>
+          <div class="tool-name"><code>inspect_contralateral_breast</code></div>
+          <p>Compares the current breast with the contralateral breast from the same subject and view projection.</p>
+          <img src="./media/tool_example_inspect_contralateral_breast.jpg" alt="Contralateral breast example">
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="tool-card">
+          <div class="tool-cat">Single-image density</div>
+          <div class="tool-name"><code>estimate_breast_density</code></div>
+          <p>Estimates fibroglandular density via dual Otsu thresholding, e.g. <code>density_percent=35.5</code>, with a caveat not to assign A/B/C/D from the percentage alone.</p>
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="tool-card">
+          <div class="tool-cat">Single-image quality</div>
+          <div class="tool-name"><code>measure_image_sharpness</code></div>
+          <p>Scores technical sharpness via Laplacian variance and Tenengrad gradient energy, returning a sharpness rating.</p>
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="tool-card">
+          <div class="tool-cat">Single-image texture</div>
+          <div class="tool-name"><code>compute_tissue_statistics</code></div>
+          <p>Computes intensity mean, standard deviation, entropy, and skewness over the breast foreground (background excluded via Otsu).</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -480,28 +645,24 @@
         <div class="content has-text-justified" style="font-size: 1.05em;">
 
           <p>
-            <em>Dataset.</em> We use the VinDr-Mammo dataset which contains approximately 20,000 full-field digital mammograms from 5,000 patients. 
-            The dataset includes expert annotations for breast-specific findings such as <em>mass</em> and 
-            <em>suspicious calcification</em>.
+            <em>Datasets.</em> We evaluate on Mammo-Bench for two tasks. Following its protocol, each source dataset
+            is randomly split into 80% training and 20% evaluation. <strong>BI-RADS assessment</strong> uses
+            KAU-BCMD (448 evaluation exams; BI-RADS 1/3/4/5 with 367/59/18/4 examples), which provides paired CC and
+            MLO views and contralateral images. <strong>Breast density assessment</strong> uses DMID (108 evaluation
+            exams; density A/B/C/D with 18/39/42/9 examples), which contains single-view mammograms only.
           </p>
 
           <p>
-            <em>SAE Training.</em> A single Sparse Autoencoder (SAE) is trained on patch-level features extracted 
-            from the fine-tuned Mammo-CLIP model using the Vision-SAEs library. Activations are taken from the final 
-            layer of the EfficientNet-B5 backbone trained on the <em>suspicious calcification</em> classification task.
+            <em>Agent and teacher.</em> The agent backbone is <code>Qwen3.5-35B-A3B</code>. Skill evolution uses
+            <code>DeepSeek-V4-Flash</code> as the teacher LLM, with one evolution iteration and at most 10 new skills
+            per iteration. The reference set consists of 100 randomly sampled training examples with ground-truth
+            labels. At inference, all task-relevant skills in the bank are injected into the agent context.
           </p>
 
           <p>
-            To ensure consistency and reduce computational overhead, a shared SAE is used across all experiments 
-            rather than training separate SAEs per model. This design enforces a common latent space and allows 
-            direct comparison across settings.
-          </p>
-
-          <p>
-            <em>Hyperparameters.</em> The input feature dimension is <code>d = 2048</code>, with an expansion 
-            factor of 8, resulting in a latent dimension <code>h = 16,384</code>. The SAE is trained for 200 epochs 
-            with a learning rate of <code>3 × 10<sup>−4</sup></code>, sparsity penalty 
-            <code>λ = 3 × 10<sup>−5</sup></code>, and a batch size of <code>4096</code>.
+            <em>Metrics.</em> We report macro-F1 with 95% bootstrap confidence intervals. Significance is assessed with
+            paired bootstrap resampling (5,000 resamples) on macro-F1 and McNemar's test on accuracy, both
+            Holm–Bonferroni corrected across the three pairwise comparisons per task.
           </p>
 
         </div>
@@ -516,45 +677,112 @@
 
       <!-- Subsection heading -->
       <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
-        Group Interventions on Latent Neurons
+        Tools Alone vs. Evolved Skills
       </h3>
 
-      <!-- Short paragraph -->
       <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
-        We investigate the role of class-level latent neurons by selectively activating or deactivating
-        the most influential ones. This helps us understand how specific neuron groups contribute to
-        downstream predictions and model interpretability.
+        Adding the tool suite to the frozen agent leaves BI-RADS macro-F1 essentially unchanged (0.108 → 0.106, not
+        significant). Adding evolved skills on top of tools raises macro-F1 to 0.148, a statistically significant gain
+        over both the no-tool and tools-only settings (paired bootstrap, Holm-corrected <em>p</em> &lt; 0.001). The
+        benefit comes not from tool access alone, but from the guidance provided by the evolved skills.
       </p>
 
-      <!-- Figure -->
-      <figure style="text-align: center; margin: 0;">
-        <div style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+      <p class="fig-caption" style="margin-top: 0; margin-bottom: 10px;">
+        <strong>Table:</strong> Effect of tools and evolved skills on BI-RADS assessment (KAU-BCMD).
+      </p>
+      <div class="table-container">
+        <table class="table is-hoverable results-table">
+          <thead>
+            <tr><th>Method</th><th>Tools</th><th>Skills</th><th>Macro-F1 [95% CI]</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Baseline</td><td>✗</td><td>✗</td><td>0.108 [0.103, 0.113]</td></tr>
+            <tr><td><code>MammoClaw</code></td><td>✓</td><td>✗</td><td>0.106 [0.093, 0.122]</td></tr>
+            <tr class="is-best"><td><code>MammoClaw</code></td><td>✓</td><td>✓</td><td>0.148 [0.121, 0.180]</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-          <!-- First subfigure -->
-          <figure style="margin: 0; flex: 1;">
-            <img src="./images/media/topk_on_combined.png" 
-                 alt="Suspicious Calcification" 
-                 style="width: 100%; border: 1px solid #ccc; border-radius: 8px;">
-            <figcaption style="margin-top: 6px; font-size: 0.9em;">
-              (a) Top-k class-level latent neurons activated
-            </figcaption>
-          </figure>
+    </div>
+  </div>
+</section>
 
-          <!-- Second subfigure -->
-          <figure style="margin: 0; flex: 1;">
-            <img src="./images/media/topk_off_combined.png" 
-                 alt="Benign Mass" 
-                 style="width: 100%; border: 1px solid #ccc; border-radius: 8px;">
-            <figcaption style="margin-top: 6px; font-size: 0.9em;">
-              (b) Top-k class-level latent neurons deactivated
-            </figcaption>
-          </figure>
 
-        </div>
+<section class="hero teaser viz-alt">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
 
-        <!-- Main figure caption -->
+      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
+        Statistical Significance Across Both Tasks
+      </h3>
+
+      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
+        Both tasks show a similar trend: skill evolution improves macro-F1, whereas adding tools alone does not lead
+        to a significant change. On breast density (<em>n</em> = 108), skills significantly improve over the
+        tools-only setting (bootstrap <em>p</em> = 0.017), while the comparison with the no-tool baseline is not
+        significant (<em>p</em> = 0.18).
+      </p>
+
+      <p class="fig-caption" style="margin-top: 0; margin-bottom: 10px;">
+        <strong>Table:</strong> Macro-F1 differences between configurations, with Holm-corrected paired-bootstrap and
+        McNemar <em>p</em>-values.
+      </p>
+      <div class="table-container">
+        <table class="table is-hoverable results-table">
+          <thead>
+            <tr><th>Task</th><th>Comparison</th><th>ΔMacro-F1</th><th>Bootstrap <em>p</em></th><th>McNemar <em>p</em></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>BI-RADS</td><td>No tools → Tools</td><td>−0.002</td><td>0.70</td><td>0.0017</td></tr>
+            <tr><td>BI-RADS</td><td>No tools → Skills</td><td>+0.040</td><td>&lt;0.001</td><td>&lt;0.001</td></tr>
+            <tr><td>BI-RADS</td><td>Tools → Skills</td><td>+0.043</td><td>&lt;0.001</td><td>&lt;0.001</td></tr>
+            <tr><td>Density</td><td>No tools → Tools</td><td>+0.019</td><td>0.70</td><td>0.062</td></tr>
+            <tr><td>Density</td><td>No tools → Skills</td><td>+0.093</td><td>0.18</td><td>&lt;0.001</td></tr>
+            <tr><td>Density</td><td>Tools → Skills</td><td>+0.074</td><td>0.017</td><td>0.062</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+
+      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
+        How Evolved Skills Change Tool Use
+      </h3>
+
+      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
+        The evolved skills capture reusable reasoning strategies rather than explicit tool-selection rules: systematic
+        inspection of suspicious regions, cross-view verification, sequential resolution of uncertainty, and grounding
+        conclusions in tool observations. After skill evolution, the agent calls ROI inspection and contralateral
+        comparison more often and the knowledge-retrieval tool less often, suggesting the skills supply some of the
+        task guidance the agent would otherwise look up. Agents also make more tool calls per case overall. How tool
+        usage relates to prediction quality remains an open question.
+      </p>
+
+      <figure style="text-align: center; margin: 0 0 2rem;">
+        <img src="./media/birads_tool_calls_with_vs_without_skills.png"
+             alt="Tool calls with vs. without skills"
+             style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
         <figcaption class="fig-caption">
-          <strong>Figure:</strong> Group interventions on class-level latent neurons. Left: Top-k activated intervention—only the top-k class-specific neurons are retained, and all others are zeroed out. Right: Top-k deactivated intervention—the top-k neurons are zeroed out while the rest remain unchanged. We observe that as few as 10 neurons can significantly affect downstream predictions, highlighting their relevance.
+          <strong>Figure:</strong> Skill evolution increases evidence gathering per case. After skill evolution, the
+          agent makes more tool calls on the BI-RADS assessment task, suggesting a more deliberate multi-step inspection
+          process before final prediction.
+        </figcaption>
+      </figure>
+
+      <figure style="text-align: center; margin: 0;">
+        <img src="./media/birads_tool_call_count_dist_with_vs_without_skills.png"
+             alt="Tool-call count distribution with vs. without skills"
+             style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
+        <figcaption class="fig-caption">
+          <strong>Figure:</strong> Distribution of tool calls per case before and after skill evolution on the BI-RADS
+          assessment task.
         </figcaption>
       </figure>
 
@@ -563,87 +791,48 @@
 </section>
 
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-
-      <!-- Subsection heading -->
-      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
-        Spatial Alignment Between SAE Neurons and Breast Concept Regions
-      </h3>
-
-      <!-- Introductory sentence -->
-      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
-        To quantitatively evaluate the spatial alignment between SAE latent activations
-        and annotated breast concept regions, we threshold each latent heatmap at the 
-        95<sup>th</sup> percentile and extract rectangular bounding boxes to approximate
-        predicted concept locations.
-      </p>
-
-      <!-- Caption above image -->
-      <p class="fig-caption" style="margin-top: 0; margin-bottom: 10px;">
-        <strong>Figure:</strong> Mean Average Precision (mAP) for breast concept localization using the
-        top-10 class-level latent neuron activations for class <em>c</em> = 1 across different settings.
-      </p>
-
-      <!-- Image -->
-      <div style="text-align: center;">
-        <img src="./images/media/iou.png" 
-             alt="IoU overlap" 
-             style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-
-      <!-- Subsection heading -->
-      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
-        Visualization of Class-Level Latent Neurons
-      </h3>
-
-      <!-- Introductory sentence -->
-      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
-        We visualize spatial activations of the most influential latent neurons in the fine-tuned  and pretrained 
-        models for mass and calcification concept predictions, and seek to understand if they align with clinically meaningful regions.
-        We show the ground-truth regions of these concept in the red boxes, however, this information is never used during the training time.
-
-      </p>
-
-      <p class="panel-label">Visualization of class-level latent neurons — Finetuned (Suspicious Calcification)</p>
-
-      <!-- Image -->
-      <div style="text-align: center;">
-        <img src="./images/media/latent_visualization_Suspicious_Calcification_finetuned_new.png" 
-             alt="Latent visualization of Suspicious Calcification" 
-             style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-
 <section class="hero teaser viz-alt">
   <div class="container is-max-desktop">
-    <div class="hero-body" style="text-align: center;">
+    <div class="hero-body">
 
-      <p class="panel-label">Visualization of class-level latent neurons — Finetuned (Mass)</p>
+      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
+        Evolved Skills
+      </h3>
 
-      <!-- Image -->
-      <img src="./images/media/latent_visualization_Mass_finetuned_new.png" 
-           alt="Latent visualization of Suspicious Calcification" 
-           style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
+      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
+        One evolution round on the BI-RADS reference set produced the following skills:
+      </p>
+      <p style="margin-bottom: 1.25rem;">
+        <span class="skill-chip">verify-suspicious-findings-with-multi-view-comparison</span>
+        <span class="skill-chip">systematic-quadrant-inspection-for-subtle-findings</span>
+        <span class="skill-chip">tool-execution-before-conclusion</span>
+        <span class="skill-chip">calibrate-birads-using-feature-checklist</span>
+        <span class="skill-chip">rule-out-artifact-with-contralateral-comparison</span>
+        <span class="skill-chip">distinguish-benign-from-probably-benign-calcifications</span>
+        <span class="skill-chip">avoid-characterizing-findings-without-tool-confirmation</span>
+        <span class="skill-chip">structured-reasoning-grounded-in-tool-outputs</span>
+        <span class="skill-chip">use-uncertainty-resolution-sequence</span>
+      </p>
+
+      <p class="panel-label">Example skill</p>
+      <div class="skill-box">
+        <div class="skill-meta">
+          name: verify-suspicious-findings-with-multi-view-comparison<br>
+          category: general &nbsp;·&nbsp; source: dynamic &nbsp;·&nbsp; task: BI-RADS
+        </div>
+        <p style="margin: 0.6rem 0;"><strong>Verify Suspicious Findings with Multi-view Comparison</strong></p>
+        <ol style="margin-top: 0;">
+          <li>Immediately invoke <code>inspect_paired_mammogram_view</code> to see if the finding is visible in both CC and MLO projections. If it is not clearly present in both, it may be a summation artifact.</li>
+          <li>Then invoke <code>inspect_contralateral_breast</code> to check for bilateral symmetry. A finding that appears in the same location on the opposite breast is likely a normal anatomic variant.</li>
+          <li>Only after confirming the finding is unilateral and present on two orthogonal views should you assign a BI-RADS category of 4 or 5.</li>
+          <li>If the finding disappears or appears symmetric, reassess as benign or normal (BI-RADS 1 or 2).</li>
+        </ol>
+        <p style="margin: 0.6rem 0 0.2rem;"><strong>Anti-pattern</strong></p>
+        <ul style="margin-top: 0;">
+          <li>Labeling a single-view finding as suspicious without multi-view confirmation.</li>
+          <li>Skipping contralateral comparison when suspecting pathology.</li>
+        </ul>
+      </div>
 
     </div>
   </div>
@@ -652,14 +841,28 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body" style="text-align: center;">
+    <div class="hero-body">
 
-      <p class="panel-label">Visualization of class-level latent neurons — Pretrained (Suspicious Calcification)</p>
+      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
+        Trajectory Visualization
+      </h3>
 
-      <!-- Image -->
-      <img src="./images/media/latent_visualization_Suspicious_Calcification_pretrained_new.png" 
-           alt="Latent visualization of Suspicious Calcification" 
-           style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
+      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
+        A representative reasoning trajectory from a CC-view mammogram. The agent first localizes a suspicious region,
+        verifies the finding using the paired MLO view and the contralateral breast, and incrementally refines its
+        reasoning before producing the final assessment. The framework exposes every tool interaction and piece of
+        intermediate evidence, which makes agent behavior auditable.
+      </p>
+
+      <div style="text-align: center;">
+        <img src="./media/trajectory.png"
+             alt="Skill-guided agent trajectory for BI-RADS prediction"
+             style="max-width: 70%; border-radius: 8px; border: 1px solid #ccc;">
+      </div>
+      <p class="fig-caption">
+        <strong>Figure:</strong> Skill-guided agent trajectory for BI-RADS prediction. Tool interactions and evolved
+        skills support evidence-driven mammography assessment.
+      </p>
 
     </div>
   </div>
@@ -668,14 +871,68 @@
 
 <section class="hero teaser viz-alt">
   <div class="container is-max-desktop">
-    <div class="hero-body" style="text-align: center;">
+    <div class="hero-body">
 
-      <p class="panel-label">Visualization of class-level latent neurons — Pretrained (Mass)</p>
+      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
+        Step-by-Step Example: A Suspicious BI-RADS 4 Case
+      </h3>
 
-      <!-- Image -->
-      <img src="./images/media/latent_visualization_Mass_pretrained_new.png" 
-           alt="Latent visualization of Suspicious Calcification" 
-           style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
+      <p style="margin-bottom: 1rem;">
+        <strong>Retrieved skills:</strong>
+        <span class="skill-chip">verify-suspicious-findings-with-multi-view-comparison</span>
+        <span class="skill-chip">rule-out-artifact-with-contralateral-comparison</span>
+        <span class="skill-chip">structured-reasoning-grounded-in-tool-outputs</span>
+        <span class="skill-chip">calibrate-birads-using-feature-checklist</span>
+      </p>
+
+      <div class="traj-step tool">
+        <div class="traj-title">User Query</div>
+        <div class="traj-row">
+          <div>“What is the correct <code>BI-RADS</code> value for this case? Choose exactly one: 0.0–6.0.”</div>
+          <div style="flex: 0 0 auto;"><img src="./media/traj4829_full.jpg" alt="Input mammogram"></div>
+        </div>
+      </div>
+
+      <div class="traj-step">
+        <div class="traj-title">Step 1 · Tool Call: <code>inspect_current_example()</code></div>
+        <em>“I should first inspect the current example to understand the metadata, then systematically evaluate the breast.”</em><br>
+        <strong>Output:</strong> <code>laterality=R, view=MLO, subject_age=45.0, has_paired_view=true, paired_view=CC</code>
+      </div>
+
+      <div class="traj-step tool">
+        <div class="traj-title">Step 2 · Tool Call: <code>inspect_mammogram_roi(bbox=[200,650,450,950])</code></div>
+        <div class="traj-row">
+          <div><em>“There appears to be an area of architectural distortion or asymmetry in the lower portion of the breast. Let me first inspect this area more closely.”</em><br>
+            The contrast-enhanced crop shows radiating lines converging toward a central point.</div>
+          <div style="flex: 0 0 auto;"><img src="./media/traj4829_roi.jpg" alt="ROI crop"></div>
+        </div>
+      </div>
+
+      <div class="traj-step tool">
+        <div class="traj-title">Step 3 · Tool Call: <code>inspect_paired_mammogram_view()</code></div>
+        <div class="traj-row">
+          <div><em>“This looks suspicious. I need to check the paired view to confirm if this is a real finding or an artifact.”</em><br>
+            The finding is present on both R MLO and R CC, supporting a real 3D finding rather than a summation artifact.</div>
+          <div style="flex: 0 0 auto;"><img src="./media/traj4829_paired.jpg" alt="Paired view"></div>
+        </div>
+      </div>
+
+      <div class="traj-step tool">
+        <div class="traj-title">Step 4 · Tool Call: <code>inspect_contralateral_breast()</code></div>
+        <div class="traj-row">
+          <div><em>“Now I need to check the contralateral breast to see whether it is a normal bilateral variant.”</em><br>
+            The left breast lacks a corresponding focal distortion, supporting a unilateral suspicious finding.</div>
+          <div style="flex: 0 0 auto;"><img src="./media/traj4829_contra.jpg" alt="Contralateral comparison"></div>
+        </div>
+      </div>
+
+      <div class="traj-step final">
+        <div class="traj-title">Step 5 · Final Decision ✓ (matches ground truth BI-RADS 4)</div>
+        <em>“The mammogram reveals a unilateral area of architectural distortion visible on both MLO and CC views,
+        confirmed by multi-view comparison. The contralateral breast lacks a corresponding finding, indicating it is not
+        a normal variant. Architectural distortion is a suspicious finding that typically warrants a BI-RADS 4
+        assessment.”</em> ⇒ <strong>BI-RADS 4</strong>
+      </div>
 
     </div>
   </div>
@@ -684,37 +941,20 @@
 
 
 
-<section class="hero teaser">
+<section id="limitations" class="section">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-
-      <!-- Subsection heading -->
-      <h3 class="title is-4" style="margin-bottom: 0.5em; text-align: left;">
-        Latent Neuron Separation: Fine-Tuned vs. Pretrained
-      </h3>
-
-      <!-- Introductory sentence -->
-      <p class="content has-text-justified" style="font-size: 1.05em; margin-bottom: 1em;">
-        We observe that the separation between class-wise mean activations becomes 
-        significantly more pronounced in the fine-tuned model, suggesting that 
-        fine-tuning sharpens the latent space to better distinguish the presence 
-        of breast concepts.
-      </p>
-
-      <!-- Caption above image -->
-      <p class="fig-caption" style="margin-top: 0; margin-bottom: 10px;">
-        <strong>Figure:</strong> Mean latent activation vectors for each class (<em>c</em> = 1 indicates
-        the presence of the concept) in the pretrained model (left) and fine-tuned model
-        (right) for the suspicious calcification concept.
-      </p>
-
-      <!-- Image -->
-      <div style="text-align: center;">
-        <img src="./images/media/latent_separation.png" 
-             alt="Latent neuron separation between pretrained and fine-tuned models" 
-             style="max-width: 100%; border-radius: 8px; border: 1px solid #ccc;">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">⚠️ Limitations</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>Evaluation covers two tasks, a single frozen backbone (Qwen3.5-35B-A3B, which is modest in the no-tools setting), and one dataset per task.</li>
+            <li>Evolved skills come from a labeled reference set and have not been validated by clinical experts. Their clinical relevance, robustness, and transfer under dataset shift remain open.</li>
+            <li>The effects of the system prompt, tool descriptions, teacher LLM, skill-generation prompt, and retrieval mechanism have not been ablated.</li>
+            <li>Skill evolution uses a single iteration and a 100-example reference set; multi-round evolution, skill pruning, and cross-task transfer are left to future work.</li>
+          </ul>
+        </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -726,12 +966,10 @@
     <div class="container is-max-desktop content">
       <h2 class="title">Citation</h2>
       <pre><code>
-  @InProceedings{Nakka_2025_MICCAI,
-    author    = {Nakka, Krishna Kanth},
-    title     = {Mammo-SAE: Interpreting Breast Cancer Concept Learning with Sparse Autoencoders},
-    booktitle = {Proceedings of the  Deep Breast Workshop on AI and Imaging for Diagnostic and Treatment Challenges in Breast Care, MICCAI 2025},
-    month     = {September},
-    year      = {2025},
+  @misc{Nakka_2026_MammoClaw,
+    author = {Nakka, Krishna Kanth},
+    title  = {MammoClaw: Towards Skill-Evolving Agent Harness for Breast Cancer Mammography Analysis},
+    year   = {2026},
 }
   </code></pre>
     </div>
@@ -746,14 +984,12 @@
       <div class="column is-six-fifths">
         <h2 class="title is-3">Visitors</h2>
         <div class="container" style="width: 100%; max-width: 400px; margin: 0 auto;">
-          <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=BTBEiW5jjy3YCVzq2Teq7jDJdbGqb6vxTksK1aPQw_0&cl=ffffff&w=a"></script>
+          <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=NgQB65OyiR3N6dejnffx420b9sx_hjCvNHb-VTy4I-A&cl=ffffff&w=a"></script>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-
 
 
 
@@ -764,7 +1000,7 @@
       <p>
         This website is adapted from <a
         href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-        Commons Attribution-ShareAlike 4.0 International License</a>.  We are thankful to CDA, BIA for releasing the pretrained models.
+        Commons Attribution-ShareAlike 4.0 International License</a>.
       </p>
     </div>
   </section>
@@ -773,5 +1009,3 @@
 
 
 </html>
-
-
