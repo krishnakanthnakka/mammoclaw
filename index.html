@@ -430,6 +430,7 @@
       <a href="#results">Results</a>
       <a href="#skills">Evolved Skills</a>
       <a href="./trajectories/index.html" target="_blank">Agent Trajectories</a>
+      <a href="#collaboration">Collaboration</a>
       <a href="#BibTeX">Citation</a>
     </div>
   </nav>
@@ -1256,6 +1257,73 @@
     </div>
   </div>
 </section>
+
+
+
+
+  <section id="collaboration" class="section" style="background-color: #efeff081;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">🤝 Open to Collaboration</h2>
+
+          <div class="tldr">
+            <span class="tldr-label">LOOKING FOR COLLABORATORS</span>
+            Because of limited compute and resources, the skill evolution reported in this paper uses only a
+            <strong>single evolution round</strong> on a 100-example reference set. The natural next step,
+            <strong>multi-round skill evolution</strong>, is left unexplored, and it is the direction I am most
+            interested in pursuing with collaborators.
+          </div>
+
+          <div class="content has-text-justified">
+            <p>
+              In the current setup, failed trajectories are collected once, a teacher model distills them into skills,
+              and those skills are used for all later runs. What happens when this loop is repeated many times is an
+              open question, and answering it needs more compute and more data than a single exploratory study allows.
+              Concretely, the questions I would like to work on are:
+            </p>
+            <ul>
+              <li><strong>Multi-round evolution dynamics.</strong> How does performance behave as evolution rounds
+                accumulate? Does it improve steadily, saturate, or degrade once the skill bank grows large?</li>
+              <li><strong>Skill validation and pruning.</strong> Over many rounds, redundant, overlapping, or
+                subtly misleading skills are likely to accumulate. What validation and pruning mechanisms keep the
+                skill bank compact and reliable?</li>
+              <li><strong>Scale of the reference set and backbone.</strong> Larger reference sets and stronger
+                mammography-capable backbones, to separate gains from skill evolution from gains from the base model.</li>
+              <li><strong>Cross-task and cross-dataset transfer.</strong> Whether skills evolved for BI-RADS assessment
+                transfer to density estimation and to other datasets, or whether they overfit to the reference set.</li>
+              <li><strong>Clinical validation.</strong> Expert review of whether evolved skills encode clinically
+                meaningful reasoning rather than dataset-specific shortcuts.</li>
+              <li><strong>Process-level evaluation.</strong> Step-level and trajectory-level metrics, so that
+                reasoning quality is scored rather than only the final prediction.</li>
+            </ul>
+            <p>
+              I would especially welcome contact from <strong>radiologists and clinical researchers</strong> interested
+              in validating or shaping the evolved skills, <strong>groups with compute</strong> to run longer-horizon
+              evolution experiments, and <strong>researchers working on agent memory, skill libraries, and
+              self-improving agents</strong> beyond the medical imaging domain.
+            </p>
+          </div>
+
+          <div class="browse-cta">
+            <a href="https://github.com/krishnakanthnakka/mammoclaw/issues" target="_blank"
+               class="button is-medium is-rounded browse-btn">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Start a conversation on GitHub</span>
+            </a>
+            <p>
+              Open an issue or discussion in the
+              <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank">MammoClaw repository</a>, or
+              reach out via
+              <a href="https://scholar.google.com/citations?hl=en&amp;user=g_21RKoAAAAJ" target="_blank">Google Scholar</a>.
+            </p>
+            <!-- TODO: add a contact email here if you would like one listed publicly -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
 
 
 
