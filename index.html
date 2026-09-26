@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MammoClaw</title>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Google+Sans|Noto+Sans|Castoro&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -24,16 +24,31 @@
 
 <style>
   /* ── Base typography ── */
+  body,
+  .teaser,
+  .publication-title,
+  .publication-authors {
+    font-family: 'Libre Baskerville', 'Baskerville Old Face', Baskerville, 'Times New Roman', serif;
+  }
   body {
-    font-family: 'Inter', 'Google Sans', 'Noto Sans', sans-serif;
     color: #1a1a1a;
-    line-height: 1.75;
+    font-size: 15.5px;
+    line-height: 1.8;
   }
 
   h1, h2, h3, h4, h5, h6,
   .title, .subtitle {
-    font-family: 'Inter', 'Google Sans', sans-serif;
-    letter-spacing: -0.01em;
+    font-family: 'Libre Baskerville', 'Baskerville Old Face', Baskerville, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  /* UI chrome stays sans-serif */
+  #site-nav a,
+  .button,
+  .tool-card .tool-cat,
+  .skill-num {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   }
 
   /* ── Section spacing ── */
@@ -229,7 +244,7 @@
   /* ── Additions for MammoClaw content ── */
   .eq {
     text-align: center;
-    font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif;
+    font-family: 'Libre Baskerville', 'Cambria Math', 'Times New Roman', serif;
     font-size: 1.1em;
     margin: 0.75rem 0 1rem;
   }
