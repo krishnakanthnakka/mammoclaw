@@ -674,7 +674,7 @@
       logged agent trajectories.
     </p>
 
-    <div class="columns is-multiline is-centered">
+    <div class="columns is-multiline">
 
       <div class="column is-half">
         <div class="tool-card">
@@ -770,7 +770,7 @@
         <div class="content has-text-justified" style="font-size: 1.05em;">
 
           <p>
-            <em>Datasets.</em> We evaluate on Mammo-Bench for two tasks. Following its protocol, each source dataset
+            <strong>Datasets.</strong> We evaluate on Mammo-Bench for two tasks. Following its protocol, each source dataset
             is randomly split into 80% training and 20% evaluation. <strong>BI-RADS assessment</strong> uses
             KAU-BCMD (448 evaluation exams; BI-RADS 1/3/4/5 with 367/59/18/4 examples), which provides paired CC and
             MLO views and contralateral images. <strong>Breast density assessment</strong> uses DMID (108 evaluation
@@ -778,14 +778,14 @@
           </p>
 
           <p>
-            <em>Agent and teacher.</em> The agent backbone is <code>Qwen3.5-35B-A3B</code>. Skill evolution uses
+            <strong>Agent and teacher.</strong> The agent backbone is <code>Qwen3.5-35B-A3B</code>. Skill evolution uses
             <code>DeepSeek-V4-Flash</code> as the teacher LLM, with one evolution iteration and at most 10 new skills
             per iteration. The reference set consists of 100 randomly sampled training examples with ground-truth
             labels. At inference, all task-relevant skills in the bank are injected into the agent context.
           </p>
 
           <p>
-            <em>Metrics.</em> We report macro-F1 with 95% bootstrap confidence intervals. Significance is assessed with
+            <strong>Metrics.</strong> We report macro-F1 with 95% bootstrap confidence intervals. Significance is assessed with
             paired bootstrap resampling (5,000 resamples) on macro-F1 and McNemar's test on accuracy, both
             Holm–Bonferroni corrected across the three pairwise comparisons per task.
           </p>
