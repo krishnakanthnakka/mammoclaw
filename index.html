@@ -329,6 +329,32 @@
   .btn-traj   { background: #d2601f; }
   .btn-poster { background: #5b3fa0; }
 
+  /* ── TL;DR block ── */
+  .tldr {
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto 1.75rem;
+    padding: 1rem 1.4rem;
+    background: #fff6ef;
+    border-left: 5px solid #f68946;
+    border-radius: 6px;
+    font-size: 1.02rem;
+    line-height: 1.7;
+  }
+  .tldr-label {
+    display: inline-block;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: #f68946;
+    border-radius: 4px;
+    padding: 0.1em 0.55em;
+    margin-right: 0.5rem;
+    vertical-align: 0.1em;
+  }
+
   .browse-cta { text-align: center; margin: 0.5rem 0 1.75rem; }
   .browse-cta p { font-size: 0.85rem; color: #666; margin-top: 0.5rem; }
   .browse-btn {
@@ -460,6 +486,13 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body" style="text-align: center;">
+
+      <div class="tldr">
+        <span class="tldr-label">TL;DR</span>
+        <code>MammoClaw</code> turns a frozen, general-purpose MLLM into a mammography agent using deterministic tools
+        and reusable skills distilled from its own failed trajectories, with no weight updates. Tools alone do not help
+        (BI-RADS macro-F1 0.108 → 0.106), but evolved skills raise it to <strong>0.148</strong>.
+      </div>
 
       <!-- Image -->
       <img src="./media/overview_v5.png"
