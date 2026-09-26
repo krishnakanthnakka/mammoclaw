@@ -395,6 +395,27 @@
     transform: translateY(-1px);
     box-shadow: 0 6px 18px rgba(246, 137, 70, 0.45);
   }
+  /* Feedback button: teal counterpart to .browse-btn */
+  .feedback-btn {
+    background: #0f766e;
+    border-color: #0f766e;
+    color: #fff;
+    font-weight: 600;
+    padding-left: 1.75em;
+    padding-right: 1.75em;
+    box-shadow: 0 4px 14px rgba(15, 118, 110, 0.3);
+    transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .feedback-btn:hover, .feedback-btn:focus {
+    background: #0b5c56;
+    border-color: #0b5c56;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 118, 110, 0.4);
+  }
+  .cta-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
   .skill-list { display: flex; flex-direction: column; gap: 0.6rem; }
   .skill-box {
     background: #fff;
@@ -1306,18 +1327,28 @@
           </div>
 
           <div class="browse-cta">
-            <a href="https://github.com/krishnakanthnakka/mammoclaw/issues" target="_blank"
-               class="button is-medium is-rounded browse-btn">
-              <span class="icon"><i class="fab fa-github"></i></span>
-              <span>Start a conversation on GitHub</span>
-            </a>
+            <div class="cta-row">
+              <a href="https://github.com/krishnakanthnakka/mammoclaw/issues" target="_blank"
+                 class="button is-medium is-rounded browse-btn">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Start a conversation on GitHub</span>
+              </a>
+              <a href="mailto:krishkanth.92@gmail.com?subject=MammoClaw%20feedback%3A%20LLM%20reasoning%20and%20clinical%20relevance%20of%20evolved%20skills"
+                 class="button is-medium is-rounded feedback-btn">
+                <span class="icon"><i class="fas fa-envelope"></i></span>
+                <span>Send feedback by email</span>
+              </a>
+            </div>
             <p>
-              Open an issue or discussion in the
-              <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank">MammoClaw repository</a>, or
+              If you have feedback on the <strong>quality of the agent's LLM reasoning</strong> in the
+              <a href="./trajectories/index.html" target="_blank">logged trajectories</a>, or on the
+              <strong>clinical relevance of the evolved skills</strong>, I would genuinely like to hear it, including
+              where the reasoning is wrong or a skill is clinically unsound. Email is the best way to reach me.
+              You can also open an issue in the
+              <a href="https://github.com/krishnakanthnakka/mammoclaw" target="_blank">MammoClaw repository</a> or
               reach out via
               <a href="https://scholar.google.com/citations?hl=en&amp;user=g_21RKoAAAAJ" target="_blank">Google Scholar</a>.
             </p>
-            <!-- TODO: add a contact email here if you would like one listed publicly -->
           </div>
 
         </div>
