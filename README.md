@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/krishnakanthnakka/mammoclaw/gh-pages/images/breasticon.png" width="90" alt="MammoClaw">
-
 # MammoClaw
 
 ### Towards Skill-Evolving Agent Harness for Breast Cancer Mammography Analysis
