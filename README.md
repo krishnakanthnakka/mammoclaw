@@ -6,7 +6,9 @@
 
 **[Krishna Kanth Nakka](https://scholar.google.com/citations?hl=en&user=g_21RKoAAAAJ)**
 
-DeepBreath Workshop, **MICCAI 2026**
+Deep Breast Workshop on AI and Imaging for Diagnostic and Treatment Challenges in Breast Care
+
+**MICCAI 2026**
 
 [![Project Page](https://img.shields.io/badge/Project-Page-f68946)](https://krishnakanthnakka.github.io/mammoclaw/)
 [![Paper](https://img.shields.io/badge/Paper-PDF-b3261e)](https://krishnakanthnakka.github.io/mammoclaw/docs/main.pdf)
@@ -165,7 +167,15 @@ appreciate feedback from clinical researchers on the evolved skills. Details on 
 @InProceedings{Nakka_2026_MICCAI,
   author    = {Nakka, Krishna Kanth},
   title     = {MammoClaw: Towards Skill-Evolving Agent Harness for Breast Cancer Mammography Analysis},
-  booktitle = {Proceedings of the Deep Breath Workshop on AI and Imaging for Diagnostic and Treatment Challenges in Breast Care, MICCAI 2026},
+  booktitle = {Proceedings of the Deep Breast Workshop on AI and Imaging for Diagnostic and Treatment Challenges in Breast Care, MICCAI 2026},
   year      = {2026},
 }
 ```
+
+---
+
+<p align="center">
+  <em> ❤️ Thanks for visiting ✨ Mammoclaw!</em><br><br>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=krishnakanthnakka.mammoclaw&style=for-the-badge&color=00d4ff"
+  alt="Views">
+</p>
